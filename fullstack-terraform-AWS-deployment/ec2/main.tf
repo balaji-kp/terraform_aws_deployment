@@ -2,7 +2,7 @@ resource "aws_instance" "webserver" {
  ami = "ami-0107e1ad00c66f499"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
- subnet_id = 
+ subnet_id = var.web-tier-sub1
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
