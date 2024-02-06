@@ -1,7 +1,7 @@
 resource "aws_instance" "webserver" {
  ami = "ami-0107e1ad00c66f499"
  instance_type = "t2.micro"
- vpc_security_group_ids = [aws_security_group.websg.id]
+ vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
@@ -22,7 +22,7 @@ resource "aws_instance" "webserver" {
 resource "aws_instance" "appserver" {
  ami = "ami-05176e024d4607c6b"
  instance_type = "t2.micro"
- vpc_security_group_ids = [aws_security_group.websg.id]
+ vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
