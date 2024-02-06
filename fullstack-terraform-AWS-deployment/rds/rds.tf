@@ -18,7 +18,7 @@ resource "aws_db_instance" "my-test-sql" {
 
 resource "aws_db_subnet_group" "db-subnet-group" {
   name       = "db-subnet-group"
-  subnet_ids = [var.db-tier-sub1]
+  subnet_ids = [var.db-tier-sub1,var.db-tier-sub2]
 }
 
 resource "aws_security_group" "db-tier-sg" {
