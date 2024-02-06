@@ -41,6 +41,11 @@ resource "aws_lb_listener" "listener" {
 # attach ec2 with target group
 resource "aws_lb_target_group_attachment" "attach1" {
   target_group_arn = aws_lb_target_group.web-tier-tg.arn
-  target_id        = var.web-instance1
+  target_id        = var.web-instance-1
+  port             = 80
+}
+resource "aws_lb_target_group_attachment" "attach2" {
+  target_group_arn = aws_lb_target_group.web-tier-tg.arn
+  target_id        = var.web-instance-2
   port             = 80
 }
