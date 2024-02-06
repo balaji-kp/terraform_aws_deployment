@@ -1,6 +1,9 @@
 output webSG{
  value = aws_security_group.webSg.id
 }
+output vpc-id{
+ value = 
+}
 output web-tier-sub1{
  value = aws_subnet.web-tier-sub1.id
 }
