@@ -27,7 +27,11 @@ module "alb"{
  
 }
 
-
+module "rds"{
+ source="./rds"
+ vpc-id=module.vpc.vpc-id
+ db-tier-sub1=module.vpc.db-tier-sub1
+}
 
 
 
