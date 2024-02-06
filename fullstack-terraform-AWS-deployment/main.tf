@@ -18,6 +18,7 @@ module "ec2"{
 
 module "alb"{
  source="./alb"
+ vpc-di=moduel.vpc.vpc-id
  webSG=module.vpc.webSG
  web-tier-sub1=module.vpc.web-tier-sub1
  web-tier-sub2=module.vpc.web-tier-sub2
