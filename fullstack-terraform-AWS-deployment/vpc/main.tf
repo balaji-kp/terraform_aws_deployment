@@ -37,7 +37,12 @@ resource "aws_subnet" "db-tier-sub1" {
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
 }
-
+resource "aws_subnet" "db-tier-sub2" {
+  vpc_id                  = aws_vpc.myvpc.id
+  cidr_block              = "11.0.6.0/24"
+  availability_zone       = "ap-south-1b"
+  map_public_ip_on_launch = true
+}
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.myvpc.id
 }
@@ -89,6 +94,10 @@ resource "aws_route_table_association" "rta4" {
 
 resource "aws_route_table_association" "rta5" {
   subnet_id      = aws_subnet.db-tier-sub1.id
+  route_table_id = aws_route_table.db-tier-RT.id
+}
+resource "aws_route_table_association" "rta6" {
+  subnet_id      = aws_subnet.db-tier-sub2.id
   route_table_id = aws_route_table.db-tier-RT.id
 }
 
