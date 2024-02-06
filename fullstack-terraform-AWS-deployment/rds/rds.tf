@@ -1,17 +1,4 @@
 #creating mysql-rds 
-resource "aws_db_instance" "mysqldb" {
-  allocated_storage    = 10
-  db_name              = "fullstack"
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
-  username             = "admin"
-  password             = "password"
-  parameter_group_name = "default.mysql5.7"
-  vpc_security_group_ids = [aws_security_group.mysqlSG.id]
-  db_subnet_group_name = aws_db_subnet_group.db-subnet-group
-  skip_final_snapshot  = true
-}
 
 resource "aws_db_instance" "my-test-sql" {
   instance_class          = "db.t3.micro"
