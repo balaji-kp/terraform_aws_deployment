@@ -19,7 +19,7 @@ resource "aws_lb" "web-tier-alb" {
   load_balancer_type = "application"
 
   security_groups = [var.webSG]
-  subnets         = [aws_subnet.sub1.id, aws_subnet.sub2.id]
+  subnets         = [web-tier-sub1, web-tier-sub2]
 
   tags = {
     Name = "web"
