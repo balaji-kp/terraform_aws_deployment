@@ -1,2 +1,2 @@
-variable vpc_id{
+variable webSG{
 }
