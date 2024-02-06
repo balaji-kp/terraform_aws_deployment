@@ -25,7 +25,7 @@ resource "aws_instance" "appserver" {
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
- subnet_id = var.web-tier-sub1
+ subnet_id = var.app-tier-sub1
  user_data = <<-EOF
  	#!/bin/bash
 	export FRONTEND_ENDPOINT=web-tier-alb-11645959.ap-south-1.elb.amazonaws.com
