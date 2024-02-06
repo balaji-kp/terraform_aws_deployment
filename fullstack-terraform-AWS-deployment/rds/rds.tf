@@ -7,7 +7,6 @@ resource "aws_db_instance" "my-test-sql" {
   multi_az                = true
   storage_type            = "gp2"
   allocated_storage       = 10
-  name                    = "database1"
   username                = "admin"
   password                = "password"
   apply_immediately       = "true"
