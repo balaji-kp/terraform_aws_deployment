@@ -31,6 +31,13 @@ resource "aws_subnet" "app-tier-sub2" {
   map_public_ip_on_launch = true
 }
 
+resource "aws_subnet" "db-tier-sub1" {
+  vpc_id                  = aws_vpc.myvpc.id
+  cidr_block              = "11.0.5.0/24"
+  availability_zone       = "ap-south-1a"
+  map_public_ip_on_launch = true
+}
+
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.myvpc.id
 }
@@ -45,6 +52,15 @@ resource "aws_route_table" "web-tier-RT" {
 }
 
 resource "aws_route_table" "app-tier-RT" {
+  vpc_id = aws_vpc.myvpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+}
+
+resource "aws_route_table" "db-tier-RT" {
   vpc_id = aws_vpc.myvpc.id
 
   route {
@@ -69,6 +85,11 @@ resource "aws_route_table_association" "rta3" {
 resource "aws_route_table_association" "rta4" {
   subnet_id      = aws_subnet.app-tier-sub2.id
   route_table_id = aws_route_table.app-tier-RT.id
+}
+
+resource "aws_route_table_association" "rta5" {
+  subnet_id      = aws_subnet.db-tier-sub1.id
+  route_table_id = aws_route_table.db-tier-RT.id
 }
 
 resource "aws_security_group" "webSg" {
