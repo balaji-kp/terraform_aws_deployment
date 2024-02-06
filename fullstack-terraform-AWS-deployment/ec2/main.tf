@@ -1,4 +1,26 @@
-resource "aws_instance" "webserver" {
+resource "aws_instance" "webserver1" {
+ ami = "ami-0107e1ad00c66f499"
+ instance_type = "t2.micro"
+ vpc_security_group_ids = [var.webSG]
+ subnet_id = var.web-tier-sub1
+ key_name = "WEBSERVER"
+ user_data = <<-EOF
+ 	#!/bin/bash
+	export BACKEND_URL=http://app-tier-alb-696022083.ap-south-1.elb.amazonaws.com
+	cd /home/ubuntu/springboot-react-fullstack-frontend
+	npm run build
+	cp -r ./build/ /var/www/html/build/
+	systemctl restart nginx
+	systemctl enable nginx
+ 	EOF
+ user_data_replace_on_change = true
+ tags = {
+ Name = "terraform-webserver"
+ }
+ 
+}
+
+resource "aws_instance" "webserver2" {
  ami = "ami-0107e1ad00c66f499"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
