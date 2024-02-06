@@ -9,6 +9,8 @@ resource "aws_subnet" "web-tier-sub1" {
   cidr_block              = "11.0.0.0/24"
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
+  enable_dns_hostnames = true
+  enable_dns_support = true
 }
 
 resource "aws_subnet" "web-tier-sub2" {
