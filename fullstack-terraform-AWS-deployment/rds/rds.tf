@@ -37,7 +37,7 @@ resource "aws_db_subnet_group" "db-subnet-group" {
 
 resource "aws_security_group" "db-tier-sg" {
   name   = "db-tier-sg"
-  vpc_id = var.vpc_id
+  vpc_id = var.vpc-id
 }
 
 resource "aws_security_group_rule" "my-rds-sg-rule" {
