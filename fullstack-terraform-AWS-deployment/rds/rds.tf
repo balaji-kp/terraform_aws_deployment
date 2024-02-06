@@ -10,8 +10,6 @@ resource "aws_db_instance" "my-test-sql" {
   username                = "admin"
   password                = "password"
   apply_immediately       = "true"
-  backup_retention_period = 10
-  backup_window           = "09:46-10:16"
   db_subnet_group_name    = aws_db_subnet_group.db-subnet-group.name
   vpc_security_group_ids  = [aws_security_group.db-tier-sg.id]
 }
