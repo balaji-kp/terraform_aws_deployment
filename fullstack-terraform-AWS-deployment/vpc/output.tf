@@ -2,7 +2,7 @@ output webSG{
  value = aws_security_group.webSg.id
 }
 output vpc-id{
- value = 
+ value = aws_vpc.myvpc.id
 }
 output web-tier-sub1{
  value = aws_subnet.web-tier-sub1.id
