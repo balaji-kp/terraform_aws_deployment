@@ -16,3 +16,6 @@ output app-tier-sub1{
 output app-tier-sub2{
  value = aws_subnet.app-tier-sub2.id
 }
+output db-tier-sub1{
+ value = aws_subnet.db-tier-sub1.id
+}
