@@ -16,6 +16,16 @@ module "ec2"{
  app-tier-sub2=module.vpc.app-tier-sub2
 }
 
+module "alb"{
+ source="./alb"
+ webSG=module.vpc.webSG
+ web-tier-sub1=module.vpc.web-tier-sub1
+ web-tier-sub2=module.vpc.web-tier-sub2
+ web-instance-1=module.ec2.web-instance-1
+ web-instance-2=module.ec2.web-instance-1
+ 
+}
+
 
 
 
