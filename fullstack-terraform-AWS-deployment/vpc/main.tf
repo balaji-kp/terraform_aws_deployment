@@ -70,11 +70,6 @@ resource "aws_route_table" "app-tier-RT" {
 
 resource "aws_route_table" "db-tier-RT" {
   vpc_id = aws_vpc.myvpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
 }
 
 resource "aws_route_table_association" "rta1" {
