@@ -8,3 +8,5 @@ variable app-tier-sub1{
 }
 variable app-tier-sub2{
 }
+variable rds-endpoint{
+}
