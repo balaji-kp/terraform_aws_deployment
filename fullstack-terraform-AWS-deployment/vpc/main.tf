@@ -38,13 +38,13 @@ resource "aws_subnet" "db-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.5.0/24"
   availability_zone       = "ap-south-1a"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 }
 resource "aws_subnet" "db-tier-sub2" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.6.0/24"
   availability_zone       = "ap-south-1b"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 }
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.myvpc.id
