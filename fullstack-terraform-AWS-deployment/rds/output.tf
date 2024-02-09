@@ -1,3 +1,3 @@
 output rds-endpoint{
- value = 
+ value = aws_db_instance.my-test-sql.endpoint
 }
