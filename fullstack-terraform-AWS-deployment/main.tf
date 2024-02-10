@@ -44,7 +44,7 @@ output web-tier-alb-endpoint{
  value = module.alb.web-tier-alb-endpoint
 }
 output app-tier-alb-endpoint{
- value = module.alb.web-tier-alb-endpoint
+ value = module.alb.app-tier-alb-endpoint
 }
 
 
