@@ -50,10 +50,10 @@ resource "aws_instance" "appserver" {
  subnet_id = var.app-tier-sub1
  user_data = <<-EOF
  	#!/bin/bash
-	export FRONTEND_ENDPOINT=web-tier-alb-11645959.ap-south-1.elb.amazonaws.com
-	export DB_URL=database-1.ctap86niaksk.ap-south-1.rds.amazonaws.com
-	cd /home/ubuntu/springboot-react-fullstack-backend/target
-	java -jar springboot-Mysql-loginpageDemo.jar --server.port=80
+	echo export  FRONTEND_ENDPOINT=web-tier-alb-722362350.ap-south-1.elb.amazonaws.com >> ~/.bashrc
+	echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
+	source ~/.bashrc
+	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
  	EOF
  user_data_replace_on_change = true
  tags = {
