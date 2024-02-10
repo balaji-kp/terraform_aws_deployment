@@ -12,3 +12,5 @@ variable rds-endpoint{
 }
 variable web-tier-alb-endpoint{
 }
+variable app-tier-alb-endpoint{
+}
