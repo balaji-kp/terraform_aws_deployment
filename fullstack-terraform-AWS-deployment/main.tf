@@ -40,6 +40,12 @@ module "rds"{
  db-tier-sub2=module.vpc.db-tier-sub2
 }
 
+output web-tier-alb-endpoint{
+ value = module.alb.web-tier-alb-endpoint
+}
+output app-tier-alb-endpoint{
+ value = module.alb.web-tier-alb-endpoint
+}
 
 
 
