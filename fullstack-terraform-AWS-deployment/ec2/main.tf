@@ -6,7 +6,7 @@ resource "aws_instance" "webserver1" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	export BACKEND_URL=${var.web-tier-alb-endpoint}
+	export BACKEND_URL=${var.app-tier-alb-endpoint}
 	cd /home/ubuntu/springboot-react-fullstack-frontend
 	npm run build
 	cp -r ./build/ /var/www/html/build/
@@ -28,7 +28,7 @@ resource "aws_instance" "webserver2" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	export BACKEND_URL= ${var.web-tier-alb-endpoint}
+	export BACKEND_URL= ${var.app-tier-alb-endpoint}
 	cd /home/ubuntu/springboot-react-fullstack-frontend
 	npm run build
 	cp -r ./build/ /var/www/html/build/

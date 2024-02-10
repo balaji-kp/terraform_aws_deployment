@@ -16,6 +16,7 @@ module "ec2"{
  app-tier-sub2=module.vpc.app-tier-sub2
  rds-endpoint=module.rds.rds-endpoint
  web-tier-alb-endpoint=module.alb.web-tier-alb-endpoint
+ app-tier-alb-endpoint=module.alb.app-tier-alb-endpoint
 }
 
 module "alb"{
