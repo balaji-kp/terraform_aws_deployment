@@ -8,6 +8,7 @@ resource "aws_instance" "webserver1" {
  	#!/bin/bash
 	export BACKEND_URL=${var.app-tier-alb-endpoint}
 	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
+    echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.profile
 	cd /home/ubuntu/springboot-react-fullstack-frontend
 	npm run build
 	cp -r ./build/ /var/www/html/build/
@@ -31,6 +32,7 @@ resource "aws_instance" "webserver2" {
  	#!/bin/bash
 	export BACKEND_URL= ${var.app-tier-alb-endpoint}
 	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
+	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.profile
 	cd /home/ubuntu/springboot-react-fullstack-frontend
 	npm run build
 	cp -r ./build/ /var/www/html/build/
