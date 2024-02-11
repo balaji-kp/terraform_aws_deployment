@@ -7,10 +7,13 @@ resource "aws_instance" "webserver1" {
  user_data = <<-EOF
  	#!/bin/bash
 	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
-	cd var/www/html
-	rm -rf build/
+	sudo su
+	sudo apt update
+	sudo apt install nginx
+	cd /var/www/
+	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
-	mv react-prod-build/ build
+	mv react-prod-build/ html/
 	systemctl restart nginx
 	sleep 3
  	EOF
@@ -30,11 +33,13 @@ resource "aws_instance" "webserver2" {
  user_data = <<-EOF
  	#!/bin/bash
 	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
-	cd var/www/html
-	rm -rf build/
+	sudo su
+	sudo apt update
+	sudo apt install nginx
+	cd /var/www/
+	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
-	rm -rf build/
-	mv react-prod-build/ build
+	mv react-prod-build/ html/
 	systemctl restart nginx
 	sleep 3
  	EOF
