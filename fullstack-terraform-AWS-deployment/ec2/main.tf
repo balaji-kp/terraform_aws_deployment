@@ -4,8 +4,8 @@ resource "aws_instance" "webserver1" {
  vpc_security_group_ids = [var.webSG]
  subnet_id = var.web-tier-sub1
  key_name = "WEBSERVER"
- user_data = <<-EOF
- 	#!/bin/bash
+ user_data = <<EOF
+ 	#! /bin/bash
 	export BACKEND_URL=${var.app-tier-alb-endpoint}
 	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
 	cd /home/ubuntu/springboot-react-fullstack-frontend
