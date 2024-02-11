@@ -10,7 +10,7 @@ resource "aws_instance" "webserver1" {
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	rm -rf build/
 	mv react-prod-build/ build
-	sleep 2
+	sleep 3
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -31,7 +31,7 @@ resource "aws_instance" "webserver2" {
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	rm -rf build/
 	mv react-prod-build/ build
-	sleep 2
+	sleep 3
  	EOF
  user_data_replace_on_change = true
  tags = {

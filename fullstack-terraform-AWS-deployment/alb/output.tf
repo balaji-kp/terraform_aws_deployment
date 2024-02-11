@@ -4,3 +4,6 @@ output web-tier-alb-endpoint{
 output app-tier-alb-endpoint{
  value = aws_lb.app-tier-alb.dns_name
 }
+output "alb_target_group_arn" {
+  value = aws_lb_target_group.web-tier-tg.arn
+}

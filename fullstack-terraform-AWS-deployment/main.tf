@@ -40,6 +40,14 @@ module "rds"{
  db-tier-sub2=module.vpc.db-tier-sub2
 }
 
+module "web-tier-ASG" {
+  source           = "./web-tier-ASG"
+  vpc_id           = module.vpc.vpc-id
+  subnet1          = module.vpc.web-tier-sub1
+  subnet2          = module.vpc.web-tier-sub2
+  target_group_arn = module.alb.alb_target_group_arn
+}
+
 output web-tier-alb-endpoint{
  value = module.alb.web-tier-alb-endpoint
 }
