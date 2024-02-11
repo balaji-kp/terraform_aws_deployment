@@ -6,6 +6,7 @@ resource "aws_instance" "webserver1" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
+	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	cd var/www/html
 	rm -rf build/
 	git clone https://github.com/balaji-kp/react-prod-build.git
@@ -28,6 +29,7 @@ resource "aws_instance" "webserver2" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
+	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	cd var/www/html
 	rm -rf build/
 	git clone https://github.com/balaji-kp/react-prod-build.git
