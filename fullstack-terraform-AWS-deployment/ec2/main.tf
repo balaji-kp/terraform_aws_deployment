@@ -6,14 +6,10 @@ resource "aws_instance" "webserver1" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	export BACKEND_URL=${var.app-tier-alb-endpoint}
-	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
-    echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.profile
-	cd /home/ubuntu/springboot-react-fullstack-frontend
-	npm run build
-	cp -r ./build/ /var/www/html/build/
-	systemctl restart nginx
-	systemctl enable nginx
+	cd var/www/html
+	git clone https://github.com/balaji-kp/react-prod-build.git
+	rm -rf build/
+	mv react-prod-build/ build
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -30,14 +26,10 @@ resource "aws_instance" "webserver2" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	export BACKEND_URL= ${var.app-tier-alb-endpoint}
-	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
-	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.profile
-	cd /home/ubuntu/springboot-react-fullstack-frontend
-	npm run build
-	cp -r ./build/ /var/www/html/build/
-	systemctl restart nginx
-	systemctl enable nginx
+	cd var/www/html
+	git clone https://github.com/balaji-kp/react-prod-build.git
+	rm -rf build/
+	mv react-prod-build/ build
  	EOF
  user_data_replace_on_change = true
  tags = {
