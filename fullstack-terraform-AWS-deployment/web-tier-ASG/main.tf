@@ -1,15 +1,19 @@
 resource "aws_launch_configuration" "web-tier-launch-config" {
-  image_id        = "ami-0107e1ad00c66f499"
+  image_id        = "ami-03f4878755434977f"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.my-asg-sg.id}"]
 
   user_data = <<-EOF
  	#!/bin/bash
-	cd var/www/html
+	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
+	sudo su
+	sudo apt update -y
+	sudo apt install nginx -y
+	cd /var/www/
+	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
-	rm -rf build/
-	mv react-prod-build/ build
-	sleep 2
+	mv react-prod-build/ html/
+	systemctl restart nginx
     EOF
 
   lifecycle {
