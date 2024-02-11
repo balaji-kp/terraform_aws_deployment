@@ -7,9 +7,10 @@ resource "aws_instance" "webserver1" {
  user_data = <<-EOF
  	#!/bin/bash
 	cd var/www/html
-	git clone https://github.com/balaji-kp/react-prod-build.git
 	rm -rf build/
+	git clone https://github.com/balaji-kp/react-prod-build.git
 	mv react-prod-build/ build
+	systemctl restart nginx
 	sleep 3
  	EOF
  user_data_replace_on_change = true
@@ -28,9 +29,11 @@ resource "aws_instance" "webserver2" {
  user_data = <<-EOF
  	#!/bin/bash
 	cd var/www/html
+	rm -rf build/
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	rm -rf build/
 	mv react-prod-build/ build
+	systemctl restart nginx
 	sleep 3
  	EOF
  user_data_replace_on_change = true
