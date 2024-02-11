@@ -5,7 +5,6 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
 
   user_data = <<-EOF
  	#!/bin/bash
-	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
