@@ -1,5 +1,5 @@
 resource "aws_instance" "webserver1" {
- ami = "ami-0107e1ad00c66f499"
+ ami = "ami-03f4878755434977f"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  subnet_id = var.web-tier-sub1
@@ -8,8 +8,8 @@ resource "aws_instance" "webserver1" {
  	#!/bin/bash
 	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	sudo su
-	sudo apt update
-	sudo apt install nginx
+	sudo apt update -y
+	sudo apt install nginx -y
 	cd /var/www/
 	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
@@ -25,7 +25,7 @@ resource "aws_instance" "webserver1" {
 }
 
 resource "aws_instance" "webserver2" {
- ami = "ami-0107e1ad00c66f499"
+ ami = "ami-03f4878755434977f"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  subnet_id = var.web-tier-sub2
@@ -34,8 +34,8 @@ resource "aws_instance" "webserver2" {
  	#!/bin/bash
 	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	sudo su
-	sudo apt update
-	sudo apt install nginx
+	sudo apt update -y
+	sudo apt install nginx -y
 	cd /var/www/
 	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
