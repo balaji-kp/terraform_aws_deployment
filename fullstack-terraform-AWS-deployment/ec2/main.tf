@@ -5,7 +5,7 @@ resource "aws_instance" "webserver1" {
  subnet_id = var.web-tier-sub1
  key_name = "WEBSERVER"
  user_data = <<EOF
- 	#! /bin/bash
+ 	#!/bin/bash
 	export BACKEND_URL=${var.app-tier-alb-endpoint}
 	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
 	cd /home/ubuntu/springboot-react-fullstack-frontend
@@ -28,7 +28,7 @@ resource "aws_instance" "webserver2" {
  subnet_id = var.web-tier-sub2
  key_name = "WEBSERVER"
  user_data = <<EOF
- 	#! /bin/bash
+ 	#!/bin/bash
 	export BACKEND_URL= ${var.app-tier-alb-endpoint}
 	echo export BACKEND_URL=${var.app-tier-alb-endpoint} >> ~/.bashrc
 	cd /home/ubuntu/springboot-react-fullstack-frontend
