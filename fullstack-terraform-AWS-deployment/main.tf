@@ -30,7 +30,7 @@ module "alb"{
  app-tier-sub1=module.vpc.app-tier-sub1
  app-tier-sub2=module.vpc.app-tier-sub2
  app-instance-1=module.ec2.app-instance-1
- app-instance-2=module.ec2.app-instance-1
+ app-instance-2=module.ec2.app-instance-2
 }
 
 module "rds"{
