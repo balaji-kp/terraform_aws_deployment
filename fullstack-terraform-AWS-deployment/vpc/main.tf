@@ -6,26 +6,11 @@ resource "aws_vpc" "myvpc" {
   enable_dns_support = true
 }
 
-resource "aws_eip" "lb" {
-  domain   = "vpc"
-}
-resource "aws_nat_gateway" "NAT_GATEWAY" {
-
-  # Allocating the Elastic IP to the NAT Gateway!
-  allocation_id = aws_eip.lb.id
-  
-  # Associating it in the Public Subnet!
-  subnet_id = aws_subnet.web-tier-sub1.id
-  tags = {
-    Name = "Nat-Gateway_Project"
-  }
-}
-
 resource "aws_subnet" "web-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.0.0/24"
   availability_zone       = "ap-south-1a"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
 
 }
 
@@ -33,7 +18,7 @@ resource "aws_subnet" "web-tier-sub2" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.1.0/24"
   availability_zone       = "ap-south-1b"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
 }
 resource "aws_subnet" "app-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
@@ -70,7 +55,7 @@ resource "aws_route_table" "web-tier-RT" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.NAT_GATEWAY.id
+    gateway_id = aws_internet_gateway.igw.id
   }
 }
 
