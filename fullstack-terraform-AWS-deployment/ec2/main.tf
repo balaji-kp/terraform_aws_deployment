@@ -15,7 +15,7 @@ resource "aws_instance" "webserver1" {
 	export app-tier-alb-endpoint="http://balaji.com"
 	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	systemctl restart nginx
-	sleep 3
+	sleep 10
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -41,7 +41,7 @@ resource "aws_instance" "webserver2" {
 	export app-tier-alb-endpoint=http://balaji.com
 	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	systemctl restart nginx
-	sleep 3
+	sleep 10
  	EOF
  user_data_replace_on_change = true
  tags = {
