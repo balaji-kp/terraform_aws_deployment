@@ -5,7 +5,6 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
 
   user_data = <<-EOF
   #!/bin/bash
-  sudo su
   sudo apt update -y
   sudo apt install nginx -y
   sudo rm -rf /var/www/html

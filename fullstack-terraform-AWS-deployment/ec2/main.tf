@@ -6,7 +6,6 @@ resource "aws_instance" "webserver1" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
 	#!/bin/bash
-	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
 	sudo rm -rf /var/www/html
@@ -33,7 +32,6 @@ resource "aws_instance" "webserver2" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
 	#!/bin/bash
-	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
 	sudo rm -rf /var/www/html
