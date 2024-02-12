@@ -37,7 +37,7 @@ resource "aws_instance" "webserver2" {
 	sudo rm -rf /var/www/html
 	sudo git clone https://github.com/balaji-kp/react-prod-build.git
 	sudo mv react-prod-build/ html/
-	cd static/js/
+    cd html/static/js/
 	export app-tier-alb-endpoint=http://balaji.com
 	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	systemctl restart nginx
