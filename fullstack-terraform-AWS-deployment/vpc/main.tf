@@ -6,6 +6,10 @@ resource "aws_vpc" "myvpc" {
   enable_dns_support = true
 }
 
+resource "aws_eip" "lb" {
+  domain   = "vpc"
+}
+
 resource "aws_subnet" "web-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.0.0/24"
