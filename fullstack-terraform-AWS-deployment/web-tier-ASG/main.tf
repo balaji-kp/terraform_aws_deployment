@@ -8,6 +8,7 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
   sudo apt update -y
   sudo apt install nginx -y
   sudo rm -rf /var/www/html
+  cd /var/www
   sudo git clone https://github.com/balaji-kp/react-prod-build.git
   sudo mv react-prod-build/ html/
   cd static/js/
