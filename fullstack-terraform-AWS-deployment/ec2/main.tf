@@ -6,7 +6,7 @@ resource "aws_instance" "webserver1" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
+	//echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
@@ -14,6 +14,7 @@ resource "aws_instance" "webserver1" {
 	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	mv react-prod-build/ html/
+	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"${var.app-tier-alb-endpoint}"|g' ./html/static/js/main.47beb5e0.js
 	systemctl restart nginx
 	sleep 3
  	EOF
@@ -40,6 +41,7 @@ resource "aws_instance" "webserver2" {
 	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	mv react-prod-build/ html/
+	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"${var.app-tier-alb-endpoint}"|g' ./html/static/js/main.47beb5e0.js
 	systemctl restart nginx
 	sleep 3
  	EOF

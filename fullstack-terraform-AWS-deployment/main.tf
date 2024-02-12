@@ -46,6 +46,7 @@ module "web-tier-ASG" {
   subnet1          = module.vpc.web-tier-sub1
   subnet2          = module.vpc.web-tier-sub2
   target_group_arn = module.alb.alb_target_group_arn
+  app-tier-alb-endpoint=module.alb.app-tier-alb-endpoint
 }
 
 output web-tier-alb-endpoint{

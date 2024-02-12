@@ -11,6 +11,7 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
 	cd /var/www/
 	rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
+  sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"${var.app-tier-alb-endpoint}"|g' ./html/static/js/main.47beb5e0.js
 	mv react-prod-build/ html/
 	systemctl restart nginx
     EOF
