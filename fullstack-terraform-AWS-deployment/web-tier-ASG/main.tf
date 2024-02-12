@@ -8,13 +8,15 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
 	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
-	cd /var/www/
-	rm -rf html/
+	sudo cd /var/www/
+	sudo rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
-  sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"${var.app-tier-alb-endpoint}"|g' ./html/static/js/main.47beb5e0.js
 	mv react-prod-build/ html/
+	cd /var/www/html/static/js/
+	sed -E 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	systemctl restart nginx
-    EOF
+	sleep 3
+ 	EOF
 
   lifecycle {
     create_before_destroy = true

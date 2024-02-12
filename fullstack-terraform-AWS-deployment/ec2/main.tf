@@ -6,15 +6,15 @@ resource "aws_instance" "webserver1" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	//echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
-	cd /var/www/
-	rm -rf html/
+	sudo cd /var/www/
+	sudo rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	mv react-prod-build/ html/
-	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"${var.app-tier-alb-endpoint}"|g' ./html/static/js/main.47beb5e0.js
+	cd /var/www/html/static/js/
+	sed -E 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	systemctl restart nginx
 	sleep 3
  	EOF
@@ -33,15 +33,15 @@ resource "aws_instance" "webserver2" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
  	#!/bin/bash
-	echo export BACKEND_URL= hppt://${var.app-tier-alb-endpoint} >> ~/.bashrc
 	sudo su
 	sudo apt update -y
 	sudo apt install nginx -y
-	cd /var/www/
-	rm -rf html/
+	sudo cd /var/www/
+	sudo rm -rf html/
 	git clone https://github.com/balaji-kp/react-prod-build.git
 	mv react-prod-build/ html/
-	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"${var.app-tier-alb-endpoint}"|g' ./html/static/js/main.47beb5e0.js
+	cd /var/www/html/static/js/
+	sed -E 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	systemctl restart nginx
 	sleep 3
  	EOF

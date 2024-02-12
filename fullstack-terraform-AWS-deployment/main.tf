@@ -56,6 +56,7 @@ output app-tier-alb-endpoint{
  value = module.alb.app-tier-alb-endpoint
 }
 
+sed -E 's/http[s]?:\/\/[^[:space:];]+"/'"${REPLACEMENT_URL}"'"/g' input.txt
 
 
 
