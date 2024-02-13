@@ -19,7 +19,7 @@ resource "aws_launch_configuration" "app-tier-launch-config" {
 }
 
 resource "aws_autoscaling_group" "app-tier-ASG" {
-  launch_configuration = "${aws_launch_configuration.web-tier-launch-config.name}"
+  launch_configuration = "${aws_launch_configuration.app-tier-launch-config.name}"
   vpc_zone_identifier  = ["${var.subnet1}","${var.subnet2 }"]
   target_group_arns    = ["${var.target_group_arn}"]
   health_check_type    = "ELB"
