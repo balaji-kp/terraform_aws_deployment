@@ -1,21 +1,20 @@
 resource "aws_instance" "webserver1" {
- ami = "ami-03f4878755434977f"
+ ami = "ami-0d378460834b1dd3b"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  subnet_id = var.web-tier-sub1
  key_name = "WEBSERVER"
  user_data = <<-EOF
 	#!/bin/bash
-	sudo apt update -y
-	sudo apt install nginx -y
-	sudo rm -rf /var/www/html
-	sudo git clone https://github.com/balaji-kp/react-prod-build.git
-	sudo mv react-prod-build/ html/
-    cd html/static/js/
-	export app-tier-alb-endpoint="http://balaji.com"
+	#sudo apt update -y
+	#sudo apt install nginx -y
+	#sudo rm -rf /var/www/html
+	#sudo git clone https://github.com/balaji-kp/react-prod-build.git
+	#sudo mv react-prod-build/ html/
+    cd /var/www/html/static/js/
+	#export app-tier-alb-endpoint="http://balaji.com"
 	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
-	systemctl restart nginx
-	sleep 10
+	sudo systemctl restart nginx
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -32,16 +31,15 @@ resource "aws_instance" "webserver2" {
  key_name = "WEBSERVER"
  user_data = <<-EOF
 	#!/bin/bash
-	sudo apt update -y
-	sudo apt install nginx -y
-	sudo rm -rf /var/www/html
-	sudo git clone https://github.com/balaji-kp/react-prod-build.git
-	sudo mv react-prod-build/ html/
-    cd html/static/js/
-	export app-tier-alb-endpoint=http://balaji.com
+	#sudo apt update -y
+	#sudo apt install nginx -y
+	#sudo rm -rf /var/www/html
+	#sudo git clone https://github.com/balaji-kp/react-prod-build.git
+	#sudo mv react-prod-build/ html/
+    cd /var/www/html/static/js/
+	#export app-tier-alb-endpoint="http://balaji.com"
 	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
-	systemctl restart nginx
-	sleep 10
+	sudo systemctl restart nginx
  	EOF
  user_data_replace_on_change = true
  tags = {

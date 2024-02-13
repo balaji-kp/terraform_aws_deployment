@@ -1,21 +1,19 @@
 resource "aws_launch_configuration" "web-tier-launch-config" {
-  image_id        = "ami-03f4878755434977f"
+  image_id        = "ami-0d378460834b1dd3b"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.my-asg-sg.id}"]
 
   user_data = <<-EOF
-  #!/bin/bash
-  sudo apt update -y
-  sudo apt install nginx -y
-  sudo rm -rf /var/www/html
-  cd /var/www
-  sudo git clone https://github.com/balaji-kp/react-prod-build.git
-  sudo mv react-prod-build/ html/
-  cd html/static/js/
-  export app-tier-alb-endpoint="http://balaji.com"
-  sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
-  systemctl restart nginx
-  sleep 3
+	#!/bin/bash
+	#sudo apt update -y
+	#sudo apt install nginx -y
+	#sudo rm -rf /var/www/html
+	#sudo git clone https://github.com/balaji-kp/react-prod-build.git
+	#sudo mv react-prod-build/ html/
+  cd /var/www/html/static/js/
+	#export app-tier-alb-endpoint="http://balaji.com"
+	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
+	sudo systemctl restart nginx
  	EOF
 
   lifecycle {
