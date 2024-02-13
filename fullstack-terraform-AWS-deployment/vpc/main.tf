@@ -10,6 +10,7 @@ resource "aws_vpc" "myvpc" {
 resource "aws_eip" "eip" {
   domain   = "vpc"
 }
+
 #creating nat_gatway via this resource in private subnet will react internet
 resource "aws_nat_gateway" "nat_gatway" {
   allocation_id = aws_eip.eip.id
