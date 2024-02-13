@@ -7,7 +7,6 @@ resource "aws_vpc" "myvpc" {
 }
 
 resource "aws_eip" "eip" {
-  instance = aws_instance.web.id
   domain   = "vpc"
 }
 resource "aws_nat_gateway" "nat_gatway" {
