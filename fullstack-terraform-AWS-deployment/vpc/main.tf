@@ -110,6 +110,11 @@ resource "aws_route_table" "db-tier-RT" {
   }
 }
 
+resource "aws_route_table_association" "rta0" {
+  subnet_id      = aws_subnet.public-subnet.id
+  route_table_id = aws_route_table.public-subnet-RT.id
+}
+
 resource "aws_route_table_association" "rta1" {
   subnet_id      = aws_subnet.web-tier-sub1.id
   route_table_id = aws_route_table.web-tier-RT.id
