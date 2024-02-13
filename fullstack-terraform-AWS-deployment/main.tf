@@ -57,6 +57,16 @@ output app-tier-alb-endpoint{
  value = module.alb.app-tier-alb-endpoint
 }
 
+module "app-tier-asg" {
+  source           = "./app-tier-asg"
+  vpc_id           = module.vpc.vpc-id
+  subnet1          = module.vpc.app-tier-sub1
+  subnet2          = module.vpc.app-tier-sub2
+  target_group_arn = module.alb.app-alb_target_group_arn
+  web-tier-alb-endpoint=module.web.app-tier-alb-endpoint
+  rds-endpoint=module.rds.rds-endpoint
+}
+
 
 
 

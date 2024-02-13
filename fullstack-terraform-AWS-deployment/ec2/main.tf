@@ -82,7 +82,10 @@ resource "aws_instance" "appserver1" {
  user_data = <<-EOF
  	#!/bin/bash
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
+	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
+	source ~/.bashrc
+	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
 	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
  	EOF
@@ -102,10 +105,9 @@ resource "aws_instance" "appserver2" {
  	#!/bin/bash
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
 	echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
-	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.profile`
-	echo export DB_URL=${var.rds-endpoint} >> ~/.profile
+	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
+	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	source ~/.profile
 	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
  	EOF
  user_data_replace_on_change = true
