@@ -6,9 +6,11 @@ resource "aws_vpc" "myvpc" {
   enable_dns_support = true
 }
 
+# creat EIP to attach NAT_GATEWAY
 resource "aws_eip" "eip" {
   domain   = "vpc"
 }
+#creating nat_gatway via this resource in private subnet will react internet
 resource "aws_nat_gateway" "nat_gatway" {
   allocation_id = aws_eip.eip.id
   subnet_id     = aws_subnet.public-subnet.id
@@ -22,6 +24,7 @@ resource "aws_nat_gateway" "nat_gatway" {
   depends_on = [aws_internet_gateway.igw]
 }
 
+# creating public subnet where nat_gatway and jumpserver reside in
 resource "aws_subnet" "public-subnet" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.10.0/24"
@@ -30,6 +33,7 @@ resource "aws_subnet" "public-subnet" {
 
 }
 
+# creating subnet for web-instance (private)
 resource "aws_subnet" "web-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.0.0/24"
@@ -38,12 +42,14 @@ resource "aws_subnet" "web-tier-sub1" {
 
 }
 
+# creating subnet for web-instance (private)
 resource "aws_subnet" "web-tier-sub2" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.1.0/24"
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = false
 }
+# creating subnet for app-instance (private)
 resource "aws_subnet" "app-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.2.0/24"
@@ -51,6 +57,7 @@ resource "aws_subnet" "app-tier-sub1" {
   map_public_ip_on_launch = false
 }
 
+# creating subnet for app-instance (private)
 resource "aws_subnet" "app-tier-sub2" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.3.0/24"
@@ -58,22 +65,28 @@ resource "aws_subnet" "app-tier-sub2" {
   map_public_ip_on_launch = false
 }
 
+# creating subnet for db-instance (private)
 resource "aws_subnet" "db-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.5.0/24"
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = false
 }
+
+# creating subnet for db-instance (private)
 resource "aws_subnet" "db-tier-sub2" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.6.0/24"
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = false
 }
+
+# creating IGW via this reacting internet
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.myvpc.id
 }
 
+# route table for public-subnet
 resource "aws_route_table" "public-subnet-RT" {
   vpc_id = aws_vpc.myvpc.id
 
@@ -83,6 +96,7 @@ resource "aws_route_table" "public-subnet-RT" {
   }
 }
 
+# route table for web-subnetes 
 resource "aws_route_table" "web-tier-RT" {
   vpc_id = aws_vpc.myvpc.id
 
@@ -92,6 +106,7 @@ resource "aws_route_table" "web-tier-RT" {
   }
 }
 
+# route table for app-subnetes 
 resource "aws_route_table" "app-tier-RT" {
   vpc_id = aws_vpc.myvpc.id
 
@@ -101,6 +116,7 @@ resource "aws_route_table" "app-tier-RT" {
   }
 }
 
+# route table for db-subnetes 
 resource "aws_route_table" "db-tier-RT" {
   vpc_id = aws_vpc.myvpc.id
   route {
@@ -109,6 +125,7 @@ resource "aws_route_table" "db-tier-RT" {
   }
 }
 
+# Associating public RT with public subnet
 resource "aws_route_table_association" "rta0" {
   subnet_id      = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-subnet-RT.id

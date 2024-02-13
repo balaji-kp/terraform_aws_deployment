@@ -24,7 +24,7 @@ resource "aws_instance" "webserver1" {
 }
 
 resource "aws_instance" "webserver2" {
- ami = "ami-03f4878755434977f"
+ ami = "ami-0d378460834b1dd3b"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  subnet_id = var.web-tier-sub2
