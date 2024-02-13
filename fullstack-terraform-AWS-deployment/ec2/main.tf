@@ -13,7 +13,7 @@ resource "aws_instance" "jumpserver" {
 	#sudo mv react-prod-build/ html/
     cd /var/www/html/static/js/
 	#export app-tier-alb-endpoint="http://balaji.com"
-	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
+	sed -Ei 's|baseURL=\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	sudo systemctl restart nginx
  	EOF
  user_data_replace_on_change = true
@@ -38,7 +38,7 @@ resource "aws_instance" "webserver1" {
 	#sudo mv react-prod-build/ html/
     cd /var/www/html/static/js/
 	#export app-tier-alb-endpoint="http://balaji.com"
-	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
+	sed -Ei 's|baseURL=\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	sudo systemctl restart nginx
  	EOF
  user_data_replace_on_change = true
@@ -63,7 +63,7 @@ resource "aws_instance" "webserver2" {
 	#sudo mv react-prod-build/ html/
     cd /var/www/html/static/js/
 	#export app-tier-alb-endpoint="http://balaji.com"
-	sed -Ei 's|\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
+	sed -Ei 's|baseURL=\"http[s]?:\/\/[^[:space:];]+|"http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	sudo systemctl restart nginx
  	EOF
  user_data_replace_on_change = true
