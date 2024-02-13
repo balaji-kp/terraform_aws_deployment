@@ -1,7 +1,7 @@
 resource "aws_launch_configuration" "web-tier-launch-config" {
   image_id        = "ami-05176e024d4607c6b"
   instance_type   = "t2.micro"
-  security_groups = ["${aws_security_group.my-asg-sg.id}"]
+  security_groups = ["${aws_security_group.my-asg-sg2.id}"]
   key_name = "WEBSERVER"
   user_data = <<-EOF
  	#!/bin/bash
