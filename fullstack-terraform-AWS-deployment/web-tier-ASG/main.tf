@@ -12,7 +12,7 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
 	#sudo mv react-prod-build/ html/
   cd /var/www/html/static/js/
 	#export app-tier-alb-endpoint="http://balaji.com"
-	sed -Ei 's|baseURL=\"http[s]?:\/\/[^[:space:];]+|baseURL="http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
+	sudo sed -Ei 's|baseURL=\"http[s]?:\/\/[^[:space:];]+|baseURL="http://'${var.app-tier-alb-endpoint}'"|g' main.47beb5e0.js
 	sudo systemctl restart nginx
  	EOF
 

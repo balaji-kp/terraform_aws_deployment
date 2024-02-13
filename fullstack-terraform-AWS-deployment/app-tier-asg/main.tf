@@ -5,12 +5,12 @@ resource "aws_launch_configuration" "app-tier-launch-config" {
   key_name = "WEBSERVER"
   user_data = <<-EOF
  	#!/bin/bash
-	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
-	echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
-	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
-	export DB_URL=${var.rds-endpoint}
-	source ~/.bashrc
-	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
+	sudo echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
+	sudo echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
+	sudo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
+	sudo export DB_URL=${var.rds-endpoint}
+	sudo source ~/.bashrc
+	sudo nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
  	EOF
 
   lifecycle {
