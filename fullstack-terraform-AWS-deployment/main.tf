@@ -10,6 +10,7 @@ module "vpc"{
 module "ec2"{
  source="./ec2"
  webSG=module.vpc.webSG
+ public-subnet=module.vpc.public-subnet
  web-tier-sub1=module.vpc.web-tier-sub1
  web-tier-sub2=module.vpc.web-tier-sub2
  app-tier-sub1=module.vpc.app-tier-sub1

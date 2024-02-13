@@ -4,6 +4,9 @@ output webSG{
 output vpc-id{
  value = aws_vpc.myvpc.id
 }
+output public-subnet{
+ value = aws_subnet.public-subnet.id
+}
 output web-tier-sub1{
  value = aws_subnet.web-tier-sub1.id
 }
