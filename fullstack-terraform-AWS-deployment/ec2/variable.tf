@@ -1,5 +1,7 @@
 variable webSG{
 }
+variable public-subnet{
+}
 variable web-tier-sub1{
 }
 variable web-tier-sub2{
