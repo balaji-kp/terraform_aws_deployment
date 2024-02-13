@@ -78,7 +78,7 @@ resource "aws_instance" "appserver1" {
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
- subnet_id = var.app-tier-sub1
+ subnet_id = var.web-tier-sub1
  user_data = <<-EOF
  	#!/bin/bash
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
