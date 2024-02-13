@@ -1,4 +1,4 @@
-resource "aws_launch_configuration" "web-tier-launch-config" {
+resource "aws_launch_configuration" "app-tier-launch-config" {
   image_id        = "ami-05176e024d4607c6b"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.app-asg-sg.id}"]
@@ -18,7 +18,7 @@ resource "aws_launch_configuration" "web-tier-launch-config" {
   }
 }
 
-resource "aws_autoscaling_group" "web-tier-ASG" {
+resource "aws_autoscaling_group" "app-tier-ASG" {
   launch_configuration = "${aws_launch_configuration.web-tier-launch-config.name}"
   vpc_zone_identifier  = ["${var.subnet1}","${var.subnet2 }"]
   target_group_arns    = ["${var.target_group_arn}"]
@@ -29,13 +29,13 @@ resource "aws_autoscaling_group" "web-tier-ASG" {
 
   tag {
     key                 = "Name"
-    value               = "web-tier-asg"
+    value               = "app-tier-asg"
     propagate_at_launch = true
   }
 }
 
 resource "aws_security_group" "app-asg-sg" {
-  name   = "my-asg-sg2"
+  name   = "app-asg-sg"
   vpc_id = "${var.vpc_id}"
 }
 
