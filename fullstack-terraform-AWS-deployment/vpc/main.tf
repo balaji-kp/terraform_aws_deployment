@@ -39,7 +39,7 @@ resource "aws_subnet" "web-tier-sub1" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.0.0/24"
   availability_zone       = "ap-south-1a"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
 
 }
 
@@ -48,7 +48,7 @@ resource "aws_subnet" "web-tier-sub2" {
   vpc_id                  = aws_vpc.myvpc.id
   cidr_block              = "11.0.1.0/24"
   availability_zone       = "ap-south-1b"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
 }
 # creating subnet for app-instance (private)
 resource "aws_subnet" "app-tier-sub1" {
@@ -103,7 +103,7 @@ resource "aws_route_table" "web-tier-RT" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.nat_gatway.id
+    gateway_id = aws_internet_gateway.igw.id
   }
 }
 
