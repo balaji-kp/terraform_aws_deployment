@@ -34,7 +34,7 @@ resource "aws_autoscaling_group" "web-tier-ASG" {
   }
 }
 
-resource "aws_security_group" "my-asg-sg" {
+resource "aws_security_group" "my-asg-sg2" {
   name   = "my-asg-sg"
   vpc_id = "${var.vpc_id}"
 }
