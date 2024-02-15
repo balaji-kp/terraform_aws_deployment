@@ -87,7 +87,7 @@ resource "aws_instance" "appserver1" {
 	source ~/.bashrc
 	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
+	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -108,7 +108,7 @@ resource "aws_instance" "appserver2" {
 	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
+	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
  	EOF
  user_data_replace_on_change = true
  tags = {

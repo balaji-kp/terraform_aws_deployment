@@ -10,7 +10,7 @@ resource "aws_launch_configuration" "app-tier-launch-config" {
 	sudo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	sudo export DB_URL=${var.rds-endpoint}
 	sudo source ~/.bashrc
-	sudo nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar --server.port=80 >>/tmp/ouput.log &
+	sudo nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
  	EOF
 
   lifecycle {
