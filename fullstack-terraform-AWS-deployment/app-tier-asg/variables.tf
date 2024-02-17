@@ -6,3 +6,4 @@ variable web-tier-alb-endpoint{
 }
 variable rds-endpoint{
 }
+variable aws_iam_instance_profile{}

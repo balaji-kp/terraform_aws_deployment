@@ -2,6 +2,15 @@ provider "aws" {
  region = "ap-south-1"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "springboot-react-fullstack-deployment-demo-project-0088"
+    key    = "/"
+    region = "ap-south-1"
+  }
+}
+
+
 module "IAM-role"{
  source="./IAM-role"
 }
@@ -70,6 +79,7 @@ module "app-tier-asg" {
   target_group_arn = module.alb.app-alb_target_group_arn
   web-tier-alb-endpoint=module.alb.web-tier-alb-endpoint
   rds-endpoint=module.rds.rds-endpoint
+  aws_iam_instance_profile=module.IAM-role.aws_iam_instance_profile
 }
 
 

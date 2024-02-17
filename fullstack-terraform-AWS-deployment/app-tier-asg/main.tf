@@ -2,6 +2,7 @@ resource "aws_launch_configuration" "app-tier-launch-config" {
   image_id        = "ami-05176e024d4607c6b"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.app-asg-sg.id}"]
+  iam_instance_profile = "${var.aws_iam_instance_profile}"
   key_name = "WEBSERVER"
   user_data = <<-EOF
  	#!/bin/bash
