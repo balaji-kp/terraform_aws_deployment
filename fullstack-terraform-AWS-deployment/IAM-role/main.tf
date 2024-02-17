@@ -29,7 +29,7 @@ resource "aws_iam_policy" "s3_read_policy" {
     {
       "Effect": "Allow",
       "Action": "s3:*",
-      "Resource": "arn:aws:s3:::my-springboot-artifact/*"
+      "Resource": "*"
     }
   ]
 }

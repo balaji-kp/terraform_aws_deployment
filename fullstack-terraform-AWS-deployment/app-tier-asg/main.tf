@@ -1,18 +1,21 @@
 resource "aws_launch_configuration" "app-tier-launch-config" {
-  image_id        = "ami-05176e024d4607c6b"
+  image_id        = "ami-0449c34f967dbf18a"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.app-asg-sg.id}"]
   iam_instance_profile = "${var.aws_iam_instance_profile}"
   key_name = "WEBSERVER"
   user_data = <<-EOF
- 	#!/bin/bash
-	sudo echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
-	sudo echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
-	sudo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
-	sudo export DB_URL=${var.rds-endpoint}
-	sudo source ~/.bashrc
-	sudo nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
- 	EOF
+  #!/bin/bash
+  echo export FRONTEND_ENDPOINT= web-tier-alb-endpoint >> /etc/environment
+  echo export DB_URL= rds-endpoint >> /etc/environment
+  export FRONTEND_ENDPOINT= b-tier-alb-endpoint
+  export DB_URL=rds-endpoint
+  source /etc/environment
+  dnf update -y
+  dnf install java-17-amazon-corretto -y
+  aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
+  nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+  EOF
 
   lifecycle {
     create_before_destroy = true

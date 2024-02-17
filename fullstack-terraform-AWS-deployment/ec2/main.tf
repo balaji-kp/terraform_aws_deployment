@@ -74,7 +74,7 @@ resource "aws_instance" "webserver2" {
 }
 
 resource "aws_instance" "appserver1" {
- ami = "ami-03f4878755434977f"
+ ami = "ami-0449c34f967dbf18a"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
@@ -82,17 +82,16 @@ resource "aws_instance" "appserver1" {
  iam_instance_profile = "${var.aws_iam_instance_profile}"
  user_data = <<-EOF
 	#!/bin/bash
-	apt update
-	apt install openjdk-17-jre-headless -y
-	apt install awscli -y
-	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
-	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
-	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
-	echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
-	source ~/.bashrc
-	export DB_URL=${var.rds-endpoint}
-	source ~/.bashrc
-	nohup java -jar /springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+	sudo su
+	echo export FRONTEND_ENDPOINT= web-tier-alb-endpoint >> /etc/environment
+	echo export DB_URL= rds-endpoint >> /etc/environment
+	export FRONTEND_ENDPOINT= b-tier-alb-endpoint
+	export DB_URL=rds-endpoint
+	source /etc/environment
+	dnf update -y
+	dnf install java-17-amazon-corretto -y
+	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
+	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -101,7 +100,7 @@ resource "aws_instance" "appserver1" {
 }
 
 resource "aws_instance" "appserver2" {
- ami = "ami-03f4878755434977f"
+ ami = "ami-0449c34f967dbf18a"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
@@ -114,9 +113,8 @@ resource "aws_instance" "appserver2" {
 	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	sudo apt update
-	sudo apt install openjdk-17-jre-headless -y
-	sudo apt install awscli -y
+	dnf update -y
+	dnf install java-17-amazon-corretto -y
 	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
 	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
 	EOF
