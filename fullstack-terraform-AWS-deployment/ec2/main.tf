@@ -82,10 +82,10 @@ resource "aws_instance" "appserver1" {
  iam_instance_profile = "${var.aws_iam_instance_profile}"
  user_data = <<-EOF
 	#!/bin/bash
-	sudo apt update
-	sudo apt install openjdk-17-jre-headless -y
-	sudo apt install awscli -y
-	sudo aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
+	apt update
+	apt install openjdk-17-jre-headless -y
+	apt install awscli -y
+	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
 	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	echo export DB_URL=${var.rds-endpoint} >> ~/.bashrc
@@ -114,10 +114,10 @@ resource "aws_instance" "appserver2" {
 	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	sudo apt update
-	sudo apt install openjdk-17-jre-headless -y
-	sudo apt install awscli -y
-	sudo aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
+	apt update
+	apt install openjdk-17-jre-headless -y
+	apt install awscli -y
+	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
 	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
 	EOF
  user_data_replace_on_change = true
