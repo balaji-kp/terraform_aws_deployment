@@ -5,7 +5,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "mybucket"
-    key    = "/"
+    key    = "terraform-backend"
     region = "ap-south-1"
   }
 }
