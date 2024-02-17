@@ -4,7 +4,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "mybucket"
+    bucket = "springboot-react-fullstack-terraform-deployment-backend-0088"
     key    = "terraform-backend"
     region = "ap-south-1"
   }
