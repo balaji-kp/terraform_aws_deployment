@@ -114,9 +114,9 @@ resource "aws_instance" "appserver2" {
 	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	apt update
-	apt install openjdk-17-jre-headless -y
-	apt install awscli -y
+	sudo apt update
+	sudo apt install openjdk-17-jre-headless -y
+	sudo apt install awscli -y
 	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
 	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
 	EOF

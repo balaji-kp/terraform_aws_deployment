@@ -28,7 +28,7 @@ resource "aws_iam_policy" "s3_read_policy" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": "s3:GetObject",
+      "Action": "s3:*",
       "Resource": "arn:aws:s3:::my-springboot-artifact/*"
     }
   ]
