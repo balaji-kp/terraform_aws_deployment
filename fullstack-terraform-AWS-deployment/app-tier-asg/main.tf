@@ -13,8 +13,8 @@ resource "aws_launch_configuration" "app-tier-launch-config" {
   source /etc/environment
   dnf update -y
   dnf install java-17-amazon-corretto -y
-  aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
-  nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+  aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
+  nohup java -jar /springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
   EOF
 
   lifecycle {

@@ -90,8 +90,8 @@ resource "aws_instance" "appserver1" {
 	source /etc/environment
 	dnf update -y
 	dnf install java-17-amazon-corretto -y
-	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
-	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
+	java -jar /springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
  	EOF
  user_data_replace_on_change = true
  tags = {
@@ -115,9 +115,10 @@ resource "aws_instance" "appserver2" {
 	source ~/.bashrc
 	dnf update -y
 	dnf install java-17-amazon-corretto -y
-	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
-	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
+	java -jar /springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
 	EOF
+	depends_on = [aws_s3_bucket.example]
  user_data_replace_on_change = true
  tags = {
  Name = "terraform-APPserver"
