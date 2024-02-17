@@ -84,7 +84,7 @@ resource "aws_lb" "app-tier-alb" {
 # attach alb with target group by mention alb listener
 resource "aws_lb_listener" "listener2" {
   load_balancer_arn = aws_lb.app-tier-alb.arn
-  port              = 8080
+  port              = 80
   protocol          = "HTTP"
 
   default_action {
