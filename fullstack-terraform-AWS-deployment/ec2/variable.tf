@@ -16,4 +16,4 @@ variable web-tier-alb-endpoint{
 }
 variable app-tier-alb-endpoint{
 }
-variable ec2_s3_role_name{}
+variable aws_iam_instance_profile{}

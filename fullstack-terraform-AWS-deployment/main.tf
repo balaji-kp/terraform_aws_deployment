@@ -22,7 +22,7 @@ module "ec2"{
  rds-endpoint=module.rds.rds-endpoint
  web-tier-alb-endpoint=module.alb.web-tier-alb-endpoint
  app-tier-alb-endpoint=module.alb.app-tier-alb-endpoint
- ec2_s3_role_name=module.IAM-role.ec2_s3_role_name
+ aws_iam_instance_profile=module.IAM-role.aws_iam_instance_profile
 }
 
 module "alb"{
