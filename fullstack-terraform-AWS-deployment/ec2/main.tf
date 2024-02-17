@@ -74,7 +74,7 @@ resource "aws_instance" "webserver2" {
 }
 
 resource "aws_instance" "appserver1" {
- ami = ""
+ ami = "ami-03f4878755434977f"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
