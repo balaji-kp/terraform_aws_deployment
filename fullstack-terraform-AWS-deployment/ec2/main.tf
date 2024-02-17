@@ -79,7 +79,7 @@ resource "aws_instance" "appserver1" {
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
  subnet_id = var.web-tier-sub1
- iam_instance_profile = "${aws_iam_instance_profile}"
+ iam_instance_profile = "${var.aws_iam_instance_profile}"
  user_data = <<-EOF
  	#!/bin/bash
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
@@ -106,7 +106,7 @@ resource "aws_instance" "appserver2" {
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
  subnet_id = var.app-tier-sub2
- iam_instance_profile = "${aws_iam_instance_profile}"
+ iam_instance_profile = "${var.aws_iam_instance_profile}"
  user_data = <<-EOF
  	#!/bin/bash
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
