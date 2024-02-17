@@ -101,11 +101,12 @@ resource "aws_instance" "appserver1" {
 }
 
 resource "aws_instance" "appserver2" {
- ami = "ami-05176e024d4607c6b"
+ ami = "ami-03f4878755434977f"
  instance_type = "t2.micro"
  vpc_security_group_ids = [var.webSG]
  key_name = "WEBSERVER"
  subnet_id = var.app-tier-sub2
+ iam_instance_profile = "${aws_iam_instance_profile}"
  user_data = <<-EOF
  	#!/bin/bash
 	echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> ~/.bashrc
@@ -113,8 +114,12 @@ resource "aws_instance" "appserver2" {
 	export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
 	export DB_URL=${var.rds-endpoint}
 	source ~/.bashrc
-	nohup java -jar /home/ubuntu/springboot-react-fullstack-backend/target/springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
- 	EOF
+	sudo apt update -y
+	sudo apt install openjdk-17-jre-headless -y
+	sudo apt install awscli -y
+	sudo aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar .
+	nohup java -jar springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+	EOF
  user_data_replace_on_change = true
  tags = {
  Name = "terraform-APPserver"
