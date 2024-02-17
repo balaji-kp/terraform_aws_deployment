@@ -35,7 +35,7 @@ resource "aws_iam_policy" "s3_read_policy" {
                 "s3-object-lambda:Get*",
                 "s3-object-lambda:List*"
             ],
-            "Resource": "*"
+            "Resource": "arn:aws:s3:::my-springboot-artifact/*"
         }
     ]
 }
