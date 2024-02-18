@@ -118,7 +118,7 @@ resource "aws_instance" "appserver2" {
 	aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
 	java -jar /springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
 	EOF
-	depends_on = [aws_s3_bucket.example]
+	depends_on = [var.rds-endpoint]
  user_data_replace_on_change = true
  tags = {
  Name = "terraform-APPserver"
