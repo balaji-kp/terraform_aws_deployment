@@ -6,15 +6,15 @@ resource "aws_launch_configuration" "app-tier-launch-config" {
   key_name = "WEBSERVER"
   user_data = <<-EOF
   #!/bin/bash
-  echo export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint} >> /etc/environment
-  echo export DB_URL= ${var.rds-endpoint} >> /etc/environment
-  export FRONTEND_ENDPOINT= ${var.web-tier-alb-endpoint}
+  echo export FRONTEND_ENDPOINT=${var.web-tier-alb-endpoint} >> /etc/environment
+  echo export DB_URL=${var.rds-endpoint} >> /etc/environment
+  export FRONTEND_ENDPOINT=${var.web-tier-alb-endpoint}
   export DB_URL=${var.rds-endpoint}
   source /etc/environment
   dnf update -y
   dnf install java-17-amazon-corretto -y
   aws s3 cp s3://my-springboot-artifact/springboot-Mysql-loginpageDemo.jar /
-  nohup java -jar /springboot-Mysql-loginpageDemo.jar >>/tmp/ouput.log &
+  nohup java -jar /springboot-Mysql-loginpageDemo.jar > ~/ouput.log &
   EOF
 
   lifecycle {

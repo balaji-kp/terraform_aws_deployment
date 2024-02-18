@@ -9,6 +9,9 @@ resource "aws_vpc" "myvpc" {
 # creat EIP to attach NAT_GATEWAY
 resource "aws_eip" "eip" {
   domain   = "vpc"
+  tags = {
+    Name = "Terraform_vpc"
+  }
 }
 
 #creating nat_gatway via this resource in private subnet will react internet
@@ -31,6 +34,9 @@ resource "aws_subnet" "public-subnet" {
   cidr_block              = "11.0.10.0/24"
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
+    tags = {
+    Name = "publci-subnet-terraform-vpc"
+  }
 
 }
 
@@ -40,7 +46,9 @@ resource "aws_subnet" "web-tier-sub1" {
   cidr_block              = "11.0.0.0/24"
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = false
-
+  tags = {
+    Name = "web-tier-subnet1-terraform-vpc"
+  }
 }
 
 # creating subnet for web-instance (private)
@@ -49,6 +57,9 @@ resource "aws_subnet" "web-tier-sub2" {
   cidr_block              = "11.0.1.0/24"
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = false
+  tags = {
+    Name = "web-tier-subnet2-terraform-vpc"
+  }
 }
 # creating subnet for app-instance (private)
 resource "aws_subnet" "app-tier-sub1" {
@@ -56,6 +67,9 @@ resource "aws_subnet" "app-tier-sub1" {
   cidr_block              = "11.0.2.0/24"
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
+    tags = {
+    Name = "app-tier-subnet1-terraform-vpc"
+  }
 }
 
 # creating subnet for app-instance (private)
@@ -64,6 +78,9 @@ resource "aws_subnet" "app-tier-sub2" {
   cidr_block              = "11.0.3.0/24"
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = true
+  tags = {
+    Name = "web-tier-subnet2-terraform-vpc"
+  }
 }
 
 # creating subnet for db-instance (private)
@@ -72,6 +89,9 @@ resource "aws_subnet" "db-tier-sub1" {
   cidr_block              = "11.0.5.0/24"
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = false
+    tags = {
+    Name = "db-tier-subnet1-terraform-vpc"
+  }
 }
 
 # creating subnet for db-instance (private)
@@ -80,11 +100,17 @@ resource "aws_subnet" "db-tier-sub2" {
   cidr_block              = "11.0.6.0/24"
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = false
+    tags = {
+    Name = "db-tier-subnet1-terraform-vpc"
+  }
 }
 
 # creating IGW via this reacting internet
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.myvpc.id
+    tags = {
+    Name = "terraform-vpc-ig"
+  }
 }
 
 # route table for public-subnet
@@ -94,6 +120,9 @@ resource "aws_route_table" "public-subnet-RT" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
+  }
+  tags = {
+    Name = "terraform-vpc-public-subnet-RT"
   }
 }
 
@@ -105,6 +134,9 @@ resource "aws_route_table" "web-tier-RT" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
+    tags = {
+    Name = "terraform-vpc-web-tier-RT"
+  }
 }
 
 # route table for app-subnetes 
@@ -115,6 +147,9 @@ resource "aws_route_table" "app-tier-RT" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
+      tags = {
+    Name = "terraform-vpc-app-tier-RT"
+  }
 }
 
 # route table for db-subnetes 
@@ -123,6 +158,9 @@ resource "aws_route_table" "db-tier-RT" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.nat_gatway.id
+  }
+  tags = {
+    Name = "terraform-vpc-db-tier-RT"
   }
 }
 
@@ -157,6 +195,17 @@ resource "aws_route_table_association" "rta5" {
 resource "aws_route_table_association" "rta6" {
   subnet_id      = aws_subnet.db-tier-sub2.id
   route_table_id = aws_route_table.db-tier-RT.id
+}
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id            = aws_vpc.myvpc.id
+  service_name      = "com.amazonaws.ap-south-1.s3"
+  vpc_endpoint_type = "Gateway"
+  subnet_ids        = [aws_subnet.app-tier-sub1.id,aws_subnet.app-tier-sub2.id]
+  route_table_ids = [aws_route_table.app-tier-RT.id]
+      tags = {
+    Name = "terraform-vpc-s3-endpoint"
+  }
 }
 
 resource "aws_security_group" "webSg" {
