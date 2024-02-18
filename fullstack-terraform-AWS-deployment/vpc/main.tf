@@ -79,7 +79,7 @@ resource "aws_subnet" "app-tier-sub2" {
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = true
   tags = {
-    Name = "web-tier-subnet2-terraform-vpc"
+    Name = "app-tier-subnet2-terraform-vpc"
   }
 }
 
