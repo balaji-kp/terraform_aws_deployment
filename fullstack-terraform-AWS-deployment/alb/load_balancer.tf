@@ -9,6 +9,7 @@ resource "aws_lb_target_group" "web-tier-tg" {
     path = "/"
     port = "traffic-port"
   }
+  
 }
 
 # creating load balancer
