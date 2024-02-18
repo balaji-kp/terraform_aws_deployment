@@ -30,7 +30,7 @@ resource "aws_autoscaling_group" "app-tier-ASG" {
 
   min_size = 1
   max_size = 2
-
+  depends_on = [var.rds-endpoint]
   tag {
     key                 = "Name"
     value               = "app-tier-asg"
