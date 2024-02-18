@@ -20,6 +20,10 @@ module "vpc"{
  vpc_cidr="11.0.0.0/16"
 }
 
+module "key-pair"{
+  source="./key-pair"
+}
+
 module "ec2"{
  source="./ec2"
  webSG=module.vpc.webSG
