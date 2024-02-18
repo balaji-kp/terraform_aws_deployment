@@ -197,16 +197,6 @@ resource "aws_route_table_association" "rta6" {
   route_table_id = aws_route_table.db-tier-RT.id
 }
 
-resource "aws_vpc_endpoint" "s3" {
-  vpc_id            = aws_vpc.myvpc.id
-  service_name      = "com.amazonaws.ap-south-1.s3"
-  vpc_endpoint_type = "Gateway"
-  subnet_ids        = [aws_subnet.app-tier-sub1.id,aws_subnet.app-tier-sub2.id]
-  route_table_ids = [aws_route_table.app-tier-RT.id]
-      tags = {
-    Name = "terraform-vpc-s3-endpoint"
-  }
-}
 
 resource "aws_security_group" "webSg" {
   name   = "web"
