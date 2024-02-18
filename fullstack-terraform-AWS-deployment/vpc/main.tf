@@ -10,10 +10,27 @@ resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.myvpc.id
   service_name      = "com.amazonaws.ap-south-1.s3"
   vpc_endpoint_type = "Gateway"
-  route_table_ids = [aws_route_table.app-tier-RT.id]
       tags = {
     Name = "terraform-vpc-s3-endpoint"
   }
+}
+resource "aws_vpc_endpoint_route_table_association" "s3_association_private_subnet_1" {
+  subnet_id          = aws_subnet.web-tier-sub1.id
+  vpc_endpoint_id    = aws_vpc_endpoint.s3.id
+}
+
+resource "aws_vpc_endpoint_route_table_association" "s3_association_private_subnet_2" {
+  subnet_id          = aws_subnet.web-tier-sub2.id
+  vpc_endpoint_id    = aws_vpc_endpoint.s3.id
+}
+resource "aws_vpc_endpoint_route_table_association" "s3_association_private_subnet_3" {
+  subnet_id          = aws_subnet.app-tier-sub1.id
+  vpc_endpoint_id    = aws_vpc_endpoint.s3.id
+}
+
+resource "aws_vpc_endpoint_route_table_association" "s3_association_private_subnet_4" {
+  subnet_id          = aws_subnet.app-tier-sub2.id
+  vpc_endpoint_id    = aws_vpc_endpoint.s3.id
 }
 
 # creat EIP to attach NAT_GATEWAY
@@ -23,6 +40,8 @@ resource "aws_eip" "eip" {
     Name = "Terraform_vpc"
   }
 }
+
+
 
 #creating nat_gatway via this resource in private subnet will react internet
 resource "aws_nat_gateway" "nat_gatway" {
